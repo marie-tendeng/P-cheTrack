@@ -1,0 +1,196 @@
+:root {
+  --bg: #0b1a2e;
+  --card: #12253f;
+  --line: #1f3a5f;
+  --text: #eaf2ff;
+  --muted: #8fa8c9;
+  --accent: #8ab4ff;
+  --good: #3ecf8e;
+  --bad: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.card .label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.card .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.up {
+  color: var(--good);
+  font-size: 0.85rem;
+}
+
+.down {
+  color: var(--bad);
+  font-size: 0.85rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.emoji {
+  font-size: 2rem;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.counter .qty {
+  min-width: 36px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.round {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.round.plus {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+form.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+button.primary {
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.total {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  padding: 8px 0 12px;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 10px;
+}
+
+.tab span.icon {
+  font-size: 1.4rem;
+}
+
+.tab.active {
+  color: var(--accent);
+  font-weight: 700;
+}
