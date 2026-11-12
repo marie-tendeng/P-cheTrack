@@ -1,62 +1,56 @@
 "use client";
 
+import { useState } from "react";
 import useStored from "../useStored";
 
-const especes = [
-  { id: "sardinelle", nom: "Sardinelle", unite: "en caisses", emoji: "🐟" },
-  { id: "thiof", nom: "Thiof", unite: "en pièces", emoji: "🐠" },
-  { id: "crevettes", nom: "Crevettes", unite: "en kgs", emoji: "🦐" },
-  { id: "poulpe", nom: "Poulpe", unite: "en kgs", emoji: "🐙" },
-];
+export default function Ventes() {
+  const [ventes, setVentes] = useStored("pechtrack-ventes", []);
+  const [espece, setEspece] = useState("");
+  const [montant, setMontant] = useState("");
 
-export default function Prises() {
-  const [prises, setPrises] = useStored("pechtrack-prises", {});
-
-  function changer(id, delta) {
-    const actuel = prises[id] || 0;
-    const suivant = Math.max(0, actuel + delta);
-    setPrises({ ...prises, [id]: suivant });
+  function ajouter(e) {
+    e.preventDefault();
+    const m = Number(montant);
+    if (!espece.trim() || !m || m <= 0) return;
+    setVentes([{ espece: espece.trim(), montant: m }, ...ventes]);
+    setEspece("");
+    setMontant("");
   }
+
+  const total = ventes.reduce((somme, v) => somme + v.montant, 0);
 
   return (
     <>
-      <h1>Prises du jour</h1>
-      <p className="subtitle">Ajoutez ce que la pirogue a ramené.</p>
+      <h1>Ventes</h1>
+      <p className="subtitle">Enregistrez chaque vente.</p>
+
+      <form className="form" onSubmit={ajouter}>
+        <input
+          placeholder="Espèce (ex : Thiof)"
+          value={espece}
+          onChange={(e) => setEspece(e.target.value)}
+        />
+        <input
+          placeholder="Montant (FCFA)"
+          type="number"
+          inputMode="numeric"
+          value={montant}
+          onChange={(e) => setMontant(e.target.value)}
+        />
+        <button className="primary" type="submit">
+          Enregistrer la vente
+        </button>
+      </form>
+
+      <div className="total">Total : {total.toLocaleString("fr-FR")} FCFA</div>
 
       <div className="list">
-        {especes.map((e) => {
-          const qte = prises[e.id] || 0;
-          return (
-            <div className="card row" key={e.id}>
-              <div className="row">
-                <span className="emoji">{e.emoji}</span>
-                <div>
-                  <div className="name">{e.nom}</div>
-                  <div className="hint">
-                    {e.unite}, reste {qte} à vendre
-                  </div>
-                </div>
-              </div>
-              <div className="counter">
-                <button
-                  className="round"
-                  onClick={() => changer(e.id, -1)}
-                  aria-label={"Retirer " + e.nom}
-                >
-                  −
-                </button>
-                <span className="qty">{qte}</span>
-                <button
-                  className="round plus"
-                  onClick={() => changer(e.id, 1)}
-                  aria-label={"Ajouter " + e.nom}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          );
-        })}
+        {ventes.map((v, i) => (
+          <div className="card row" key={i}>
+            <span className="name">{v.espece}</span>
+            <span>{v.montant.toLocaleString("fr-FR")} FCFA</span>
+          </div>
+        ))}
       </div>
     </>
   );
